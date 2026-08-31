@@ -1,0 +1,9 @@
+Ticket,Category,Priority,Sentiment,Summary,Input Tokens,Output Tokens,Total Tokens
+Customer is unable to login,Login,High,Negative,Customer is unable to login,175,79,254
+my credit card was charged twice,Payment,High,Negative,Customer reports their credit card was charged twice,176,86,262
+application crashes when I open the app,Technical,High,Negative,Application crashes on launch,177,90,267
+I want to change my registered email address,Other,Medium,Neutral,Customer wants to change their registered email address,178,107,285
+I cannot reset my password,Login,High,Negative,Customer is unable to reset their password,175,88,263
+i am still waiting for my refund of room cancellation,Payment,Medium,Negative,Customer is waiting for a refund after room cancellation,180,95,275
+why i recevie spam email from your company,Other,Medium,Negative,Customer is receiving spam emails from the company,179,113,292
+unable to send the campaign emails through your app,Technical,Medium,Negative,Customer is unable to send campaign emails through the app,179,146,325
