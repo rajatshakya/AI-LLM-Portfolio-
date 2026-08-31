@@ -1,200 +1,223 @@
-# LLM-Powered Customer Support Ticket Classifier
+# LLM Ticket Classifier
 
-An LLM-powered customer support ticket classification system that automatically categorizes customer queries into predefined support categories such as **Login, Payment, Technical, and Other**.
+A Python-based customer support ticket classification application that uses an LLM through the OpenRouter API to automatically analyze and categorize customer support tickets.
 
-The project demonstrates how Large Language Models (LLMs) can be integrated into a Python-based workflow to automate repetitive customer support operations and produce structured classification results.
+The project demonstrates how a Python application can communicate with an LLM, provide structured instructions, receive structured JSON output, handle errors, track token usage, and export results to CSV.
 
 ## 🚀 Project Overview
 
-Customer support teams receive a large volume of tickets every day. Manually reviewing and categorizing these tickets can be time-consuming and inconsistent.
+Customer support teams receive a large number of tickets every day. Manually categorizing these tickets can be time-consuming.
 
-This project automates the initial ticket-triage process:
-
-**Customer Ticket → LLM → Category → CSV Output**
-
-The system sends each support ticket to an LLM through the OpenRouter API, receives the predicted category, and stores the results in a CSV file for further processing or analysis.
-
-## 🎯 Business Objective
-
-The primary objective is to reduce manual effort involved in ticket categorization and provide a scalable foundation for automated support-ticket routing.
-
-Potential business applications include:
-
-* Automated ticket triage
-* Support queue routing
-* Priority-based workflow automation
-* Customer service analytics
-* Reducing repetitive manual classification
-* Integration with CRM or help-desk platforms
-
-## 🛠️ Technologies Used
-
-* **Python 3.13**
-* **OpenRouter API**
-* **LLM – Ling 3.0 Flash**
-* Python `openai` package
-* `python-dotenv`
-* Python `csv` module
-* Git & GitHub
-
-## ⚙️ How It Works
-
-1. Customer support tickets are provided as input.
-2. Python iterates through each ticket using a `for` loop.
-3. Each ticket is sent to the LLM through the OpenRouter API.
-4. The LLM classifies the ticket into a predefined category.
-5. The classification result is stored in Python.
-6. All results are exported to a CSV file.
-
-### Workflow
-
-```text
-             Customer Support Tickets
-                       │
-                       ▼
-                  Python Script
-                       │
-                       ▼
-                  For Loop
-                       │
-                       ▼
-                OpenRouter API
-                       │
-                       ▼
-                     LLM
-                       │
-                       ▼
-              Ticket Classification
-                       │
-                       ▼
-              Structured Results
-                       │
-                       ▼
-             classified_tickets.csv
-```
-
-## 📂 Project Structure
-
-```text
-LLM-Ticket-Classifier/
-│
-├── ticket_classifier.py       # Main Python application
-├── classified_tickets.csv     # Classified ticket results
-├── .gitignore                 # Prevents sensitive files from being committed
-└── README.md                  # Project documentation
-```
-
-> **Note:** The `.env` file containing the API key is intentionally excluded from the repository for security reasons.
-
-## 📊 Example
+This project automates the initial classification process using an LLM.
 
 ### Input
 
-```text
-Customer is unable to login
-```
+Example customer ticket:
+
+> "My credit card was charged twice."
 
 ### Output
 
-```text
-Login
+```json
+{
+  "category": "Payment",
+  "priority": "High",
+  "sentiment": "Negative",
+  "summary": "Customer reports their credit card was charged twice"
+}
 ```
 
-Another example:
+---
 
-```text
-My credit card was charged twice
-```
+# 🛠️ Technologies Used
 
-Output:
+* Python
+* OpenRouter API
+* OpenAI Python SDK
+* JSON
+* CSV
+* python-dotenv
+* Git & GitHub
 
-```text
-Payment
-```
+---
 
-The system can process multiple tickets automatically rather than requiring individual manual classification.
+# 📌 Version 1 — Basic Ticket Classifier
 
-## 🔐 Environment Configuration
+The first version focuses on the fundamentals of integrating Python with an LLM.
 
-Create a `.env` file in the project directory:
+### Features
 
-```text
-OPENROUTER_API_KEY=your_api_key_here
-```
+* Connects Python application to an LLM API
+* Sends customer support tickets to the LLM
+* Classifies tickets into:
 
-The API key is loaded securely using `python-dotenv` and is not hard-coded into the Python application.
+  * Login
+  * Payment
+  * Technical
+  * Other
+* Processes multiple tickets using a Python loop
+* Exports classification results to CSV
 
-## ▶️ How to Run
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/rajatshakya/LLM-Ticket-Classifier.git
-cd LLM-Ticket-Classifier
-```
-
-### 2. Install dependencies
-
-```bash
-pip install openai python-dotenv
-```
-
-### 3. Configure your API key
-
-Create a `.env` file:
+### Flow
 
 ```text
-OPENROUTER_API_KEY=your_api_key_here
+Customer Ticket
+      ↓
+Python Application
+      ↓
+LLM API
+      ↓
+Classification
+      ↓
+CSV File
 ```
 
-### 4. Run the application
+### Files
 
-```bash
-python ticket_classifier.py
-```
+`ticket_classifier.py`
+Basic LLM-powered ticket classification application.
 
-The classified results will be saved to:
+`classified_tickets.csv`
+CSV containing the classification results.
+
+---
+
+# 📈 Version 2 — Structured LLM Ticket Classifier
+
+Version 2 improves the application by introducing structured LLM responses and basic production-oriented practices.
+
+### Features
+
+#### 1. System & User Prompts
+
+A system prompt defines the role and rules for the LLM, while the user prompt contains the actual customer ticket.
+
+#### 2. Structured JSON Output
+
+The LLM is instructed to return structured JSON containing:
+
+* Category
+* Priority
+* Sentiment
+* Summary
+
+#### 3. JSON Parsing
+
+The application uses Python's `json` module to convert the LLM's JSON response into a Python dictionary.
+
+#### 4. Error Handling
+
+The application handles:
+
+* Invalid JSON responses
+* API/application errors
+
+A failed ticket does not stop the processing of the remaining tickets.
+
+#### 5. Token Usage Tracking
+
+The application captures:
+
+* Input tokens
+* Output tokens
+* Total tokens
+
+This can be used for monitoring and future API cost calculations.
+
+#### 6. CSV Export
+
+The final structured results are exported to CSV for further analysis or reporting.
+
+### Version 2 Flow
 
 ```text
-classified_tickets.csv
+Customer Ticket
+      ↓
+Python
+      ↓
+System Prompt + User Prompt
+      ↓
+LLM API
+      ↓
+Structured JSON
+      ↓
+JSON Parsing
+      ↓
+Error Handling
+      ↓
+Token Usage
+      ↓
+CSV Output
 ```
 
-## 💡 Key Learning Outcomes
+### Files
 
-This project demonstrates practical implementation of:
+`ticket_classifier_v2.py`
+Upgraded ticket classification application.
+
+`classified_tickets_v2.csv`
+Structured classification results including category, priority, sentiment, summary, and token usage.
+
+---
+
+# 💡 Example Categories
+
+| Ticket                          | Category  | Priority | Sentiment |
+| ------------------------------- | --------- | -------- | --------- |
+| Customer is unable to login     | Login     | High     | Negative  |
+| Credit card was charged twice   | Payment   | High     | Negative  |
+| Application crashes             | Technical | High     | Negative  |
+| Change registered email address | Other     | Medium   | Neutral   |
+
+---
+
+# 🔐 Security
+
+API credentials are stored using environment variables rather than hard-coded in the Python source code.
+
+The `.env` file is excluded from Git using `.gitignore`.
+
+**Never commit API keys or other sensitive credentials to a public repository.**
+
+---
+
+# 🎯 Skills Demonstrated
+
+This project demonstrates practical understanding of:
 
 * LLM API integration
-* Prompt-based text classification
-* Environment variable management
-* Python loops and data structures
-* Processing multiple inputs through an LLM
-* Structured result collection
-* CSV generation
-* Basic Git version control
-* GitHub project management
+* Prompt engineering
+* System vs. user prompts
+* Structured LLM output
+* JSON parsing
+* Python exception handling
+* Environment variables
+* Token usage tracking
+* CSV processing
+* Git & GitHub
+* Basic LLM application architecture
 
-## 🔮 Future Enhancements
+---
 
-The current implementation provides a foundation that can be extended into a production-oriented ticket automation system.
+# 🔮 Possible Future Improvements
 
-Potential improvements include:
+The project can be extended with:
 
-* Add more support categories
-* Return structured JSON responses
-* Add ticket priority classification
-* Add sentiment analysis
-* Detect customer intent
-* Process large CSV datasets automatically
-* Add confidence scores
-* Integrate with Zendesk, Jira, or other ticketing systems
-* Automatically route tickets to the appropriate support team
-* Build a web interface for uploading ticket files
-* Add logging and error handling
-* Implement batch processing for large ticket volumes
+* More support ticket categories
+* Confidence scores
+* Batch processing
+* Database storage
+* REST API using FastAPI
+* Web interface
+* Logging and monitoring
+* Retry mechanisms for API failures
+* Automated evaluation of classification accuracy
+* Vector database and semantic search
 
-## 📌 Project Status
+---
 
-**Version:** 1.0
-**Status:** Completed – Initial LLM Classification Pipeline
+# 👨‍💻 Author
 
-This project is part of a practical learning journey focused on **LLM application development, AI automation, and real-world business use cases**.
+**Rajat Shakya**
+
+This project is part of my hands-on learning journey in **LLMs, Generative AI, and AI application development**.
