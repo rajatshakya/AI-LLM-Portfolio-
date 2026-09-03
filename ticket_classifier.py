@@ -48,5 +48,3 @@ with open("classified_tickets.csv", "w", newline="", encoding="utf-8") as file:
 
 print("CSV file created successfully!")
 
-
-git --version
